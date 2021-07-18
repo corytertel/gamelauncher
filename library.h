@@ -18,12 +18,12 @@ struct Library {
 
     //Destructor
     virtual ~Library() = default;
-
-    //Required Functions
-    virtual bool get_apps_from_path() = 0;
     
 protected:
     const std::string lib_title;
     const std::string path; 
     std::vector<T> apps;
+
+    //Required Functions
+    virtual bool get_apps_from_path() = 0;
 };

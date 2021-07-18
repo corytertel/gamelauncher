@@ -1,6 +1,4 @@
 #pragma once
-#include <cstdio>
-#include <cstdlib>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -8,6 +6,7 @@
 #include <fstream>
 #include <filesystem>
 #include "library.h"
+#include "log.h"
 
 struct SteamApp {
     SteamApp()
@@ -28,9 +27,6 @@ struct SteamLibrary : Library<SteamApp> {
     //Destructor
     ~SteamLibrary();
 
-    //Interface Required Methods
-    bool get_apps_from_path() override;
-
     //Methods
     void launch_app(size_t index) const;
     std::string library_to_string() const;
@@ -38,4 +34,7 @@ struct SteamLibrary : Library<SteamApp> {
 private:
     //Helper methods
     static bool alphabetical_cmp(const SteamApp& a, const SteamApp& b);
+
+    //Interface Required Methods
+    bool get_apps_from_path() override;
 };

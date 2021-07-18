@@ -11,7 +11,9 @@ bool SteamApp::launch() const {
 SteamLibrary::SteamLibrary(std::string path)
 : Library<SteamApp>{ "Steam", path } {
     //Get apps at the current path
-    get_apps_from_path();
+    if (!get_apps_from_path()) { 
+        throw std::runtime_error{ "Directory either does not exist or is not a steamapps directory" }; 
+    }
 
     //Sort all the apps alphabetically through bubble sort
     //No need for a fancy sorting algorithm
@@ -33,6 +35,8 @@ SteamLibrary::~SteamLibrary() {
 
 //Interface Methods
 bool SteamLibrary::get_apps_from_path() {
+    if (!std::filesystem::is_directory(path)) { return false; }
+
     //Loop through all files in the steamapps path
     //For the appmanifest files, go into the file and retrieve the ID and Name
     for (const auto& entry : std::filesystem::directory_iterator(path)) {
@@ -91,7 +95,7 @@ void SteamLibrary::launch_app(size_t index) const {
 std::string SteamLibrary::library_to_string() const {
     std::string list{};
     for (size_t i = 0; i < apps.size(); i++) {
-        list += std::to_string(i) + ". " + apps[i].name + "\n";
+        list += std::to_string(i) + ".\t" + apps[i].name + "\n";
     }
     return list;
 }
