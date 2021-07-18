@@ -1,0 +1,13 @@
+Use ncurses to make it a cmus like app with vim like controls.
+
+Ask user to add their steamapps directory. Option for default will be /home/cory/.local/share/Steam/steamapps/
+
+App will process all the appmanifests and their numbers. Inside will be the app ID's and the app names.
+
+Will list all the Steam apps with their names in a CMUS style menu.
+
+Will use `steam steam://rungameid/GAMEID` command to launch game.
+
+Maybe have different windows that display as "tabs" for different libraries. (ie. Steam, Epic, Origin)
+
+Have a :reload command to reload a library.
