@@ -47,21 +47,21 @@ ASCI Code Tests:
 */
 
 void Log::standard(std::string msg) {
-    printf("\x1B[37m%s\033[0m\n", msg.c_str());
+    printf("\x1B[37m%s\033[0m", msg.c_str());
 }
 
 void Log::info(std::string msg) {
-    printf("\x1B[36m[INFO] - %s\033[0m\n", msg.c_str());
+    printf("\x1B[36m[INFO] - %s\033[0m", msg.c_str());
 }
 
 void Log::debug(std::string msg) {
-    printf("\x1B[93m[DEBUG] - %s\033[0m\n", msg.c_str());
+    printf("\x1B[93m[DEBUG] - %s\033[0m", msg.c_str());
 }
 
 void Log::warning(std::string msg) {
-    printf("\033[1;43;30m[WARNING] - %s\033[0m\n", msg.c_str());
+    printf("\033[1;43;30m[WARNING] - %s\033[0m", msg.c_str());
 }
 
 void Log::error(std::string msg) {
-    printf("\033[1;41;37m[ERROR] - %s\033[0m\n", msg.c_str());
+    printf("\033[1;41;37m[ERROR] - %s\033[0m", msg.c_str());
 }
