@@ -6,11 +6,14 @@
 #include "log.h"
 
 struct Arg {
-    Arg(std::string flag) : flag{ flag }, args{} {}
+    Arg(std::string flag) : flag{ flag }, args{}, arg_function{} {}
     std::string flag;
     std::vector<std::string> args;
+    void (*arg_function)(const Arg&);
+    void exec() { arg_function(*this); }
 };
 
+//Arg Functions follow void(*)(const Arg&)
 void change_path(const Arg& arg);
 
 int main(const int argc, const char** argv) {
@@ -94,6 +97,8 @@ int main(const int argc, const char** argv) {
     }
 
     //FLAGS
+
+    //Populate the args vector with the args from cmdline
     std::vector<Arg> args{};
     for (int i = 1; i < argc; i++) {
         if (argv[i][0] == '-') {
@@ -110,8 +115,8 @@ int main(const int argc, const char** argv) {
             Log::debug("Arg arg: " + arg2 + "\n");
         }
     }*/
-    
-    //std::vector<> func_to_exec{};
+
+    //Assign the function to execute to each arg
     for (const auto& arg : args) {
         if (arg.flag == "--path") {
             change_path(arg);        
@@ -123,6 +128,11 @@ int main(const int argc, const char** argv) {
             Log::error("Invalid argument");
             return 1;
         }
+    }
+
+    //Execute each function for each arg
+    for (const auto& arg : args) {
+        arg.exec();
     }
 
     return 0;
