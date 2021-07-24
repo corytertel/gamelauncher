@@ -10,7 +10,7 @@ struct Arg {
     std::string flag;
     std::vector<std::string> args;
     void (*arg_function)(const Arg&);
-    void exec() { arg_function(*this); }
+    void exec() const { arg_function(*this); }
 };
 
 //Arg Functions follow void(*)(const Arg&)
