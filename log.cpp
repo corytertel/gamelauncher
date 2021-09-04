@@ -1,4 +1,4 @@
-#include "log.h"
+#include "log.hpp"
 
 /* ANSI escape color codes:
 Name            FG  BG
@@ -46,22 +46,22 @@ ASCI Code Tests:
     printf("\n");
 */
 
-void Log::standard(std::string msg) {
+void Log::standard(const std::string& msg) {
     printf("\x1B[37m%s\033[0m", msg.c_str());
 }
 
-void Log::info(std::string msg) {
+void Log::info(const std::string& msg) {
     printf("\x1B[36m[INFO] - %s\033[0m", msg.c_str());
 }
 
-void Log::debug(std::string msg) {
+void Log::debug(const std::string& msg) {
     printf("\x1B[93m[DEBUG] - %s\033[0m", msg.c_str());
 }
 
-void Log::warning(std::string msg) {
+void Log::warning(const std::string& msg) {
     printf("\033[1;43;30m[WARNING] - %s\033[0m", msg.c_str());
 }
 
-void Log::error(std::string msg) {
+void Log::error(const std::string& msg) {
     printf("\033[1;41;37m[ERROR] - %s\033[0m", msg.c_str());
 }

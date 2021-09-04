@@ -1,4 +1,4 @@
-#include "steam_library.h"
+#include "steam_library.hpp"
 
 //SteamApp Required Launch Method
 bool SteamApp::launch() const {

@@ -2,21 +2,16 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include "steam_library.h"
-#include "log.h"
-
-struct Arg {
-    Arg(std::string flag) : flag{ flag }, args{}, arg_function{} {}
-    std::string flag;
-    std::vector<std::string> args;
-    void (*arg_function)(const Arg&);
-    void exec() const { arg_function(*this); }
-};
+#include <span>
+#include <string_view>
+#include "steam_library.hpp"
+#include "log.hpp"
+#include "cmdarg.hpp"
 
 //Arg Functions follow void(*)(const Arg&)
-void change_path(const Arg& arg);
+void change_path(const CmdArg& arg);
 
-int main(const int argc, const char** argv) {
+auto main(int argc, char** argv) -> int {
     //Default run
     if (argc == 1) {
         //Will try to load path from gamelauncher.conf first
@@ -43,8 +38,14 @@ int main(const int argc, const char** argv) {
             //Get $USER
             char name_buffer[256]{};
             FILE *file{ popen("whoami", "r") };
-            if (!file) { Log::error("Could not read 'whoami' for $USER"); return 1; }
-            fgets(name_buffer, sizeof(name_buffer), file);
+            if (!file) { 
+                Log::error("Could not read 'whoami' for $USER\nError getting file.");
+                return 1; 
+            }
+            if (fgets(name_buffer, sizeof(name_buffer), file) == nullptr) {
+                Log::error("Count not read 'whoami' for $USER\nError reading file.");
+                return 1;
+            }
             pclose(file);
             std::string user_name{ name_buffer };
             user_name.pop_back();
@@ -98,30 +99,42 @@ int main(const int argc, const char** argv) {
 
     //FLAGS
 
+    //Helper for safer c-array access
+    std::span<char*> args{ argv, size_t(argc) };
+    //Container for all flags and their arguments
+    std::vector<CmdArg> flags{};
+
+    //Check to see if the first flag is valid
+    if (args[1][0] != '-') {
+        Log::error("Invalid flag.");
+        return 1;
+    }
+
     //Populate the args vector with the args from cmdline
-    std::vector<Arg> args{};
-    for (int i = 1; i < argc; i++) {
-        if (argv[i][0] == '-') {
-            args.push_back(Arg{ std::string{ argv[i] } });
+    //Add all flags and their arguments to the flags vector
+    for (size_t i = 1; i < args.size(); i++) {
+        if (args[i][0] == '-') {
+            flags.push_back(CmdArg{ std::string_view{ args[i] } });
         }
         else {
-            args.back().args.push_back(std::string{ argv[i] });
+            flags.back().add_arg(std::string_view{ args[i] });
         }
     }
 
-    /*for (const auto& arg : args) {
-        Log::debug("Flag: " + arg.flag + "\n");
-        for (const auto& arg2 : arg.args) {
-            Log::debug("Arg arg: " + arg2 + "\n");
+    // DEBUG: print out flags and their arguments
+    for (const auto& flag : flags) {
+        Log::debug("Flag: " + std::string{ flag.get_flag() } + "\n");
+        for (auto arg : flag.get_args()) {
+            Log::debug("Arg: " + std::string{ arg } + "\n");
         }
-    }*/
+    }
 
     //Assign the function to execute to each arg
-    for (const auto& arg : args) {
-        if (arg.flag == "--path") {
+    for (const auto& arg : flags) {
+        if (arg.get_flag() == "--path") {
             change_path(arg);        
         }
-        else if (arg.flag == "-p") {
+        else if (arg.get_flag() == "-p") {
             change_path(arg);
         }
         else {
@@ -130,19 +143,21 @@ int main(const int argc, const char** argv) {
         }
     }
 
+    //Reorder flags in terms of priority
+
     //Execute each function for each arg
-    for (const auto& arg : args) {
-        arg.exec();
+    for (const auto& flag : flags) {
+        flag.exec();
     }
 
     return 0;
 }
 
-void change_path(const Arg& arg) {
+void change_path(const CmdArg& arg) {
     std::ofstream new_conf_file{ "gamelauncher.conf" };
     new_conf_file << "# gamelauncher conf file. Do not modify.\n\n";
     new_conf_file << "# path to steamapps\n";
-    new_conf_file << arg.args[0] << std::endl;
+    new_conf_file << arg.get_args()[0] << std::endl;
     new_conf_file.close();
     Log::info("Changed path in gamelauncher.conf");
 }

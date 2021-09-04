@@ -1,0 +1,3 @@
+/home/cory/Code/gamelauncher/build/CMakeFiles/rebuild_cache.dir
+/home/cory/Code/gamelauncher/build/CMakeFiles/edit_cache.dir
+/home/cory/Code/gamelauncher/build/CMakeFiles/main.dir

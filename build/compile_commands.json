@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/cory/Code/gamelauncher/build",
+  "command": "/nix/store/gn91psj1g3wnvzq3yvwn2h55jqd36z7v-clang-wrapper-12.0.1/bin/clang++   -g3 -pthread -gdwarf-4 -fPIC -Wno-deprecated -pipe -fno-elide-type -fdiagnostics-show-template-tree -Wall -Wextra -Werror -Wpedantic -Wvla -Wextra-semi -Wnull-dereference -Wswitch-enum -Wsuggest-override -O -MMD -MP -Wno-gnu-include-next -Wno-unused-variable -Wno-unused-parameter -std=gnu++20 -o CMakeFiles/main.dir/main.cpp.o -c /home/cory/Code/gamelauncher/main.cpp",
+  "file": "/home/cory/Code/gamelauncher/main.cpp"
+},
+{
+  "directory": "/home/cory/Code/gamelauncher/build",
+  "command": "/nix/store/gn91psj1g3wnvzq3yvwn2h55jqd36z7v-clang-wrapper-12.0.1/bin/clang++   -g3 -pthread -gdwarf-4 -fPIC -Wno-deprecated -pipe -fno-elide-type -fdiagnostics-show-template-tree -Wall -Wextra -Werror -Wpedantic -Wvla -Wextra-semi -Wnull-dereference -Wswitch-enum -Wsuggest-override -O -MMD -MP -Wno-gnu-include-next -Wno-unused-variable -Wno-unused-parameter -std=gnu++20 -o CMakeFiles/main.dir/cmdarg.cpp.o -c /home/cory/Code/gamelauncher/cmdarg.cpp",
+  "file": "/home/cory/Code/gamelauncher/cmdarg.cpp"
+},
+{
+  "directory": "/home/cory/Code/gamelauncher/build",
+  "command": "/nix/store/gn91psj1g3wnvzq3yvwn2h55jqd36z7v-clang-wrapper-12.0.1/bin/clang++   -g3 -pthread -gdwarf-4 -fPIC -Wno-deprecated -pipe -fno-elide-type -fdiagnostics-show-template-tree -Wall -Wextra -Werror -Wpedantic -Wvla -Wextra-semi -Wnull-dereference -Wswitch-enum -Wsuggest-override -O -MMD -MP -Wno-gnu-include-next -Wno-unused-variable -Wno-unused-parameter -std=gnu++20 -o CMakeFiles/main.dir/log.cpp.o -c /home/cory/Code/gamelauncher/log.cpp",
+  "file": "/home/cory/Code/gamelauncher/log.cpp"
+},
+{
+  "directory": "/home/cory/Code/gamelauncher/build",
+  "command": "/nix/store/gn91psj1g3wnvzq3yvwn2h55jqd36z7v-clang-wrapper-12.0.1/bin/clang++   -g3 -pthread -gdwarf-4 -fPIC -Wno-deprecated -pipe -fno-elide-type -fdiagnostics-show-template-tree -Wall -Wextra -Werror -Wpedantic -Wvla -Wextra-semi -Wnull-dereference -Wswitch-enum -Wsuggest-override -O -MMD -MP -Wno-gnu-include-next -Wno-unused-variable -Wno-unused-parameter -std=gnu++20 -o CMakeFiles/main.dir/steam_library.cpp.o -c /home/cory/Code/gamelauncher/steam_library.cpp",
+  "file": "/home/cory/Code/gamelauncher/steam_library.cpp"
+}
+]
